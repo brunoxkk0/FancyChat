@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="EverNifeBetterSellHand_main" target="1.8" />
+      <module name="EverNifeBetterSellHand_test" target="1.8" />
+      <module name="EverNifeCore_main" target="1.8" />
+      <module name="EverNifeCore_test" target="1.8" />
+      <module name="EverNifeCoreLite_main" target="1.8" />
+      <module name="EverNifeCoreLite_test" target="1.8" />
+      <module name="EverNifeFancyChat_main" target="1.8" />
+      <module name="EverNifeFancyChat_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
