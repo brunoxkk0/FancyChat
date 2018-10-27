@@ -37,7 +37,7 @@ public class EverNifeFancyChat extends JavaPlugin{
             this.getServer().getPluginManager().registerEvents(fancyChatListener, this);
 
             //Iniciando PlaceHolderAPI Integration
-            if (Bukkit.getPluginManager().isPluginEnabled("PlaceHolderAPI")){
+            if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                 info("&aIntegration to PlaceHolderAPI");
                 PlaceHolderIntegration.initialize(this);
             }

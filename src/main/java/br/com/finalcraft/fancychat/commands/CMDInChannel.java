@@ -59,6 +59,12 @@ public class CMDInChannel implements CommandExecutor {
             }
         }
 
+        if (!fancyChannel.getPermission().isEmpty()){
+            if (!FCBukkitUtil.hasThePermission(player,fancyChannel.getPermission())){
+                return true;
+            }
+        }
+
         String msg = String.join(" ", args);
         FancyChatSendChannelMessageEvent sendMessageEvent = new FancyChatSendChannelMessageEvent(player, fancyChannel, msg);
         Bukkit.getServer().getPluginManager().callEvent(sendMessageEvent);

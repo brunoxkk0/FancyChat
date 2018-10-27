@@ -63,6 +63,12 @@ public class CMDChannelLock implements CommandExecutor {
             return true;
         }
 
+        if (!fancyChannel.getPermission().isEmpty()){
+            if (!FCBukkitUtil.hasThePermission(player,fancyChannel.getPermission())){
+                return true;
+            }
+        }
+
         ChannelManager.setPlayerLockChannel(player,fancyChannel);
 
         sender.sendMessage("§6§l ▶ §aCanal §e[" + fancyChannel.getName() + "]§a definido como padrão!");
