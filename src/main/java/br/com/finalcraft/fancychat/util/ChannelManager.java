@@ -10,6 +10,23 @@ import java.util.Map;
 public class ChannelManager {
 
     public static Map<Player, FancyChannel> playerLockFancyChannelMap = new HashMap<Player, FancyChannel>();
+    public static Map<Player, FancyChannel> playerTempChannel = new HashMap<Player, FancyChannel>();
+
+    public static void setTempChannel(Player player,FancyChannel channel){
+        playerTempChannel.put(player,channel);
+    }
+
+    public static FancyChannel getTempChannel(Player player){
+        return playerTempChannel.remove(player);
+    }
+
+    public static FancyChannel getPriorityChannel(Player player){
+        FancyChannel fancyChannel = ChannelManager.getTempChannel(player);
+        if (fancyChannel == null){
+            fancyChannel = ChannelManager.getPlayerLockChannel(player);
+        }
+        return fancyChannel;
+    }
 
     public static void refresh(){
         playerLockFancyChannelMap.clear();

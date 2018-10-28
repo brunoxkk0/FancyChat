@@ -56,8 +56,6 @@ public class FancyTag {
 
         format          = ChatColor.translateAlternateColorCodes('&',format);
         hover_message   = ChatColor.translateAlternateColorCodes('&',hover_message);
-        run_command     = (!run_command.startsWith("/") ? "/" + run_command : run_command);
-        suggest_command = (!suggest_command.startsWith("/") ? "/" + suggest_command : suggest_command);
 
         fancyText = new FancyText(format);
         if (!this.hover_message.isEmpty()) fancyText.setHoverText(hover_message);

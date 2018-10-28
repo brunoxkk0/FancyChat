@@ -7,17 +7,22 @@ import br.com.finalcraft.fancychat.api.FancyChatSendChannelMessageEvent;
 import br.com.finalcraft.fancychat.config.fancychat.FancyChannel;
 import br.com.finalcraft.fancychat.config.fancychat.FancyTag;
 import br.com.finalcraft.fancychat.fancytextchat.FancyText;
+import br.com.finalcraft.fancychat.util.ChannelManager;
 import br.com.finalcraft.fancychat.util.IgnoreUtil;
 import br.com.finalcraft.fancychat.util.MuteUtil;
+import br.com.finalcraft.fancychat.util.PublicMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CMDInChannel implements CommandExecutor {
 
@@ -38,12 +43,6 @@ public class CMDInChannel implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (MuteUtil.isMuted(sender)){
-            sender.sendMessage("§6§l ▶ Você está mutado");
-            sender.sendMessage(MuteUtil.getMuteMessage(sender));
-            return true;
-        }
-
         List<FancyChannel> allFancyChannels = new ArrayList<FancyChannel>(FancyChannel.mapOfFancyChannels.values());
         List<String> allAliases = new ArrayList<String>();
         allFancyChannels.forEach(fancyChannel -> {
@@ -59,47 +58,21 @@ public class CMDInChannel implements CommandExecutor {
             }
         }
 
-        if (!fancyChannel.getPermission().isEmpty()){
-            if (!FCBukkitUtil.hasThePermission(player,fancyChannel.getPermission())){
-                return true;
-            }
-        }
+        String msg = String.join(" ", args).trim();
 
-        String msg = String.join(" ", args);
-        FancyChatSendChannelMessageEvent sendMessageEvent = new FancyChatSendChannelMessageEvent(player, fancyChannel, msg);
-        Bukkit.getServer().getPluginManager().callEvent(sendMessageEvent);
-        if (sendMessageEvent.isCancelled()){
+        if (msg.isEmpty()){
+            if (!fancyChannel.getPermission().isEmpty()){
+                if (!FCBukkitUtil.hasThePermission(player,fancyChannel.getPermission())){
+                    return true;
+                }
+            }
+            ChannelManager.setPlayerLockChannel(player,fancyChannel);
             return true;
         }
 
-        String rawMsg = sendMessageEvent.getMessage();
-        if (player.hasPermission(PermissionNodes.chatColor)){
-            rawMsg = ChatColor.translateAlternateColorCodes('&', rawMsg);
-        }
-
-        List<FancyText> textChatList = new ArrayList<FancyText>();
-        for (FancyTag fancyTag : sendMessageEvent.getChannel().getTagsFromThisBuilder()){
-            FancyText fancyText = fancyTag.getFancyText().parsePlaceholdersAndClone(sendMessageEvent.getSender());
-            fancyText.text = fancyText.text.replace("{msg}",rawMsg);
-            textChatList.add(fancyText);
-        }
-
-
-        int amoutOfPlayerTharReceivedThis = 0;
-        for (Player onlinePlayerToSendMessage : sendMessageEvent.getChannel().getPlayersOnThisChannel()){
-            if (sendMessageEvent.getChannel().getDistance() <= -1
-                    || player.getLocation().distance(onlinePlayerToSendMessage.getLocation()) <=  sendMessageEvent.getChannel().getDistance()){
-                amoutOfPlayerTharReceivedThis++;
-                if (!IgnoreUtil.isIgnoring(onlinePlayerToSendMessage.getName(), sendMessageEvent.getSender().getName())){
-                    FancyText.sendTo(onlinePlayerToSendMessage,textChatList);
-                }
-            }
-        }
-
-        if (amoutOfPlayerTharReceivedThis <= 1 && sendMessageEvent.getChannel().getDistance() > -1){
-            player.sendMessage("§6§l ▶ §cNão tem ninguem perto de você para receber essa mensagem...");
-        }
-
+        Set<Player> onlienPlayer = new HashSet(Bukkit.getOnlinePlayers());
+        AsyncPlayerChatEvent event = new AsyncPlayerChatEvent(true, player, msg, onlienPlayer);
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return true;
     }
 }
