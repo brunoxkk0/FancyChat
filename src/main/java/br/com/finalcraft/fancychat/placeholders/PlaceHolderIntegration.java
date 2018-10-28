@@ -11,9 +11,11 @@ public class PlaceHolderIntegration extends EZPlaceholderHook {
 
     public static boolean hasPlaceholderApi = false;
     public static String parsePlaceholder(Player player, String text){
-        if (!hasPlaceholderApi){
-            return ChatColor.translateAlternateColorCodes('&',text);
+        if (hasPlaceholderApi){
+            text = ChatColor.translateAlternateColorCodes('&',text);
         }
+
+        text = text.replace("{player}",player.getName());
         return PlaceholderAPI.setPlaceholders(player,text);
     }
 

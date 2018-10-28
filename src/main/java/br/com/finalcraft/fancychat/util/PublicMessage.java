@@ -4,16 +4,14 @@ import br.com.finalcraft.fancychat.PermissionNodes;
 import br.com.finalcraft.fancychat.api.FancyChatSendChannelMessageEvent;
 import br.com.finalcraft.fancychat.config.fancychat.FancyChannel;
 import br.com.finalcraft.fancychat.config.fancychat.FancyTag;
-import br.com.finalcraft.fancychat.config.fancychat.TellTag;
-import br.com.finalcraft.fancychat.config.lang.FancyChatLang;
 import br.com.finalcraft.fancychat.fancytextchat.FancyText;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PublicMessage {
 

@@ -1,7 +1,6 @@
 package br.com.finalcraft.fancychat.fancytextchat;
 
 import br.com.finalcraft.fancychat.placeholders.PlaceHolderIntegration;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

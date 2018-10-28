@@ -1,5 +1,5 @@
 name: EverNifeFancyChat
-version: 1.0.1a
+version: 1.0.1c
 author: EverNife
 main: br.com.finalcraft.fancychat.EverNifeFancyChat
 softdepend: [ PlaceholderAPI]

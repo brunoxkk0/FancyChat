@@ -2,17 +2,9 @@ package br.com.finalcraft.fancychat.commands;
 
 
 import br.com.finalcraft.fancychat.FCBukkitUtil;
-import br.com.finalcraft.fancychat.PermissionNodes;
-import br.com.finalcraft.fancychat.api.FancyChatSendChannelMessageEvent;
 import br.com.finalcraft.fancychat.config.fancychat.FancyChannel;
-import br.com.finalcraft.fancychat.config.fancychat.FancyTag;
-import br.com.finalcraft.fancychat.fancytextchat.FancyText;
 import br.com.finalcraft.fancychat.util.ChannelManager;
-import br.com.finalcraft.fancychat.util.IgnoreUtil;
-import br.com.finalcraft.fancychat.util.MuteUtil;
-import br.com.finalcraft.fancychat.util.PublicMessage;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
