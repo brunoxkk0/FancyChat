@@ -60,10 +60,12 @@ public class CMDInChannel implements CommandExecutor {
                     return true;
                 }
             }
-            ChannelManager.setTempChannel(player,fancyChannel);
+            ChannelManager.setPlayerLockChannel(player,fancyChannel);
+            sender.sendMessage("§6§l ▶ §aCanal §e[" + fancyChannel.getName() + "]§a definido como padrão!");
             return true;
         }
 
+        ChannelManager.setTempChannel(player,fancyChannel);
         Set<Player> onlinePlayer = new HashSet(Bukkit.getOnlinePlayers());
         AsyncPlayerChatEvent event = new AsyncPlayerChatEvent(true, player, msg, onlinePlayer);
         new BukkitRunnable(){
