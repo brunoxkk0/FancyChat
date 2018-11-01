@@ -20,3 +20,7 @@ commands:
   inchannel:
     description: EverNifeFancyChat InChannel Command
     usage: /<command>
+  mute:
+    description: EverNifeFancyChat Mute Command
+    usage: /<command>
+    aliases: [tempmute,chatmute,silence]

@@ -1,10 +1,12 @@
-package br.com.finalcraft.fancychat.util;
+package br.com.finalcraft.fancychat.util.messages;
 
 import br.com.finalcraft.fancychat.PermissionNodes;
 import br.com.finalcraft.fancychat.api.FancyChatSendChannelMessageEvent;
 import br.com.finalcraft.fancychat.config.fancychat.FancyChannel;
 import br.com.finalcraft.fancychat.config.fancychat.FancyTag;
 import br.com.finalcraft.fancychat.fancytextchat.FancyText;
+import br.com.finalcraft.fancychat.util.IgnoreUtil;
+import br.com.finalcraft.fancychat.util.MuteUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -40,21 +42,33 @@ public class PublicMessage {
             textChatList.add(fancyText);
         }
 
-        int amoutOfPlayerTharReceivedThis = 0;
-        for (Player onlinePlayerToSendMessage : channel.getPlayersOnThisChannel()){
-            if (channel.getDistance() <= -1
-                    || calcDistance(player,onlinePlayerToSendMessage) <=  channel.getDistance()){
-                amoutOfPlayerTharReceivedThis++;
+        if (channel.distance <= -1){
+            for (Player onlinePlayerToSendMessage : channel.getPlayersOnThisChannel()) {
                 if (!IgnoreUtil.isIgnoring(onlinePlayerToSendMessage.getName(), player.getName())){
                     FancyText.sendTo(onlinePlayerToSendMessage,textChatList);
                 }
             }
-        }
+        }else {
+            List<Player> playerThatHeardedThis = new ArrayList<Player>();
+            int amoutOfPlayerTharReceivedThis = 0;
 
-        if (amoutOfPlayerTharReceivedThis <= 1 && channel.getDistance() > -1){
-            player.sendMessage("§6§l ▶ §cNão tem ninguem perto de você para receber essa mensagem...");
-        }
+            for (Player onlinePlayerToSendMessage : channel.getPlayersOnThisChannel()) {
+                if (calcDistance(player,onlinePlayerToSendMessage) <=  channel.getDistance()){
+                    amoutOfPlayerTharReceivedThis++;
+                    if (!IgnoreUtil.isIgnoring(onlinePlayerToSendMessage.getName(), player.getName())){
+                        FancyText.sendTo(onlinePlayerToSendMessage,textChatList);
+                    }
+                }
+            }
 
+            if (amoutOfPlayerTharReceivedThis <= 1 && channel.getDistance() > -1){
+                player.sendMessage("§6§l ▶ §cNão tem ninguem perto de você para receber essa mensagem...");
+            }
+
+            if (channel.getDistance() > -1){
+                SpyMessage.spyOnThis(textChatList, playerThatHeardedThis);
+            }
+        }
     }
 
     public static double calcDistance(Player player, Player otherPlayer){

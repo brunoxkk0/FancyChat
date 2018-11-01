@@ -2,6 +2,7 @@ package br.com.finalcraft.fancychat.api;
 
 import br.com.finalcraft.fancychat.config.fancychat.FancyChannel;
 import br.com.finalcraft.fancychat.util.ChannelManager;
+import br.com.finalcraft.fancychat.util.MuteUtil;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
@@ -21,6 +22,7 @@ public class FancyChatApi {
     }
 
     public static void mutePlayer(String playerName, long millis){
+        MuteUtil.mutePlayer(playerName,millis);
     }
 
     public static void sendMessage(String message, FancyChannel fancyChannel){

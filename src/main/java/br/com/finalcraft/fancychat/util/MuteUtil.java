@@ -17,11 +17,11 @@ public class MuteUtil {
     long start;
     long time;
 
-    public static Map<String,MuteUtil> mapOfCooldowns = new HashMap<>();
+    public static Map<String,MuteUtil> mapOfMutes = new HashMap<>();
     public static void initialize(){
-        mapOfCooldowns.clear();
-        for (String name : ConfigManager.getDataStore().getKeys("Cooldown.")){
-            mapOfCooldowns.put(name, new MuteUtil(name));
+        mapOfMutes.clear();
+        for (String name : ConfigManager.getDataStore().getKeys("MuteTime.")){
+            mapOfMutes.put(name, new MuteUtil(name));
         }
     }
 
@@ -34,7 +34,7 @@ public class MuteUtil {
             return true;
         }
 
-        MuteUtil muteUtil = mapOfCooldowns.getOrDefault(sender.getName(),null);
+        MuteUtil muteUtil = mapOfMutes.getOrDefault(sender.getName(),null);
         if (muteUtil == null){
             return false;
         }
@@ -51,6 +51,10 @@ public class MuteUtil {
         return true;
     }
 
+    public static void mutePlayer(String playerName, long time){
+        mapOfMutes.put(playerName,new MuteUtil(playerName,System.currentTimeMillis(),time));
+    }
+
     public static String getMuteMessage(CommandSender sender){
         if ( !(sender instanceof Player)){
             return "";
@@ -60,7 +64,7 @@ public class MuteUtil {
             return "§c§l   (GlobalMute está ativado)";
         }
 
-        MuteUtil muteUtil = mapOfCooldowns.getOrDefault(sender.getName(),null);
+        MuteUtil muteUtil = mapOfMutes.getOrDefault(sender.getName(),null);
         if (muteUtil == null){
             return "";
         }
@@ -79,8 +83,8 @@ public class MuteUtil {
 
     public MuteUtil(String playerName) {
         this.playerName = playerName;
-        this.start  = ConfigManager.getDataStore().getLong("Cooldown." + this.playerName + ".start",-1);
-        this.time   = ConfigManager.getDataStore().getLong("Cooldown." + this.playerName + ".time",0);
+        this.start  = ConfigManager.getDataStore().getLong("MuteTime." + this.playerName + ".start",-1);
+        this.time   = ConfigManager.getDataStore().getLong("MuteTime." + this.playerName + ".time",0);
     }
 
     public MuteUtil(String playerName, long start, long time) {
@@ -91,14 +95,14 @@ public class MuteUtil {
     }
 
     public void delete(){
-        mapOfCooldowns.remove(this.playerName);
-        ConfigManager.getDataStore().setValue("Cooldown." + this.playerName, null);
+        mapOfMutes.remove(this.playerName);
+        ConfigManager.getDataStore().setValue("MuteTime." + this.playerName, null);
         ConfigManager.getDataStore().save();
     }
 
     public void saveOnYML(){
-        ConfigManager.getDataStore().setValue("Cooldown." + this.playerName + ".start", start);
-        ConfigManager.getDataStore().setValue("Cooldown." + this.playerName + ".time", time);
+        ConfigManager.getDataStore().setValue("MuteTime." + this.playerName + ".start", start);
+        ConfigManager.getDataStore().setValue("MuteTime." + this.playerName + ".time", time);
         ConfigManager.getDataStore().save();
     }
 
@@ -129,7 +133,6 @@ public class MuteUtil {
         }else {
             return "§cVocê precisa esperar mais §6" + fcTimeFrame.getSeconds() + " §c" + segundo;
         }
-
     }
 
 

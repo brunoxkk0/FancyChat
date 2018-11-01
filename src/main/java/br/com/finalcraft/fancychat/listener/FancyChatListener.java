@@ -2,7 +2,7 @@ package br.com.finalcraft.fancychat.listener;
 
 import br.com.finalcraft.fancychat.config.fancychat.FancyChannel;
 import br.com.finalcraft.fancychat.util.ChannelManager;
-import br.com.finalcraft.fancychat.util.PublicMessage;
+import br.com.finalcraft.fancychat.util.messages.PublicMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

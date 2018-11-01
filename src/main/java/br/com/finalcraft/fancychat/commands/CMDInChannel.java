@@ -1,6 +1,7 @@
 package br.com.finalcraft.fancychat.commands;
 
 
+import br.com.finalcraft.fancychat.EverNifeFancyChat;
 import br.com.finalcraft.fancychat.FCBukkitUtil;
 import br.com.finalcraft.fancychat.config.fancychat.FancyChannel;
 import br.com.finalcraft.fancychat.util.ChannelManager;
@@ -10,6 +11,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -58,13 +60,18 @@ public class CMDInChannel implements CommandExecutor {
                     return true;
                 }
             }
-            ChannelManager.setPlayerLockChannel(player,fancyChannel);
+            ChannelManager.setTempChannel(player,fancyChannel);
             return true;
         }
 
-        Set<Player> onlienPlayer = new HashSet(Bukkit.getOnlinePlayers());
-        AsyncPlayerChatEvent event = new AsyncPlayerChatEvent(true, player, msg, onlienPlayer);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        Set<Player> onlinePlayer = new HashSet(Bukkit.getOnlinePlayers());
+        AsyncPlayerChatEvent event = new AsyncPlayerChatEvent(true, player, msg, onlinePlayer);
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                Bukkit.getServer().getPluginManager().callEvent(event);
+            }
+        }.runTaskAsynchronously(EverNifeFancyChat.instance);
         return true;
     }
 }

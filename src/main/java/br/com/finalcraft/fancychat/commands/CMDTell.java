@@ -2,7 +2,7 @@ package br.com.finalcraft.fancychat.commands;
 
 
 import br.com.finalcraft.fancychat.util.MuteUtil;
-import br.com.finalcraft.fancychat.util.PrivateMessage;
+import br.com.finalcraft.fancychat.util.messages.PrivateMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -57,7 +57,7 @@ public class CMDTell implements CommandExecutor {
 
         StringBuilder msgBuilder = new StringBuilder();
         if (!firstArgWasAPerson){
-            msgBuilder.append(args[0]);
+            msgBuilder.append(args[0] + " ");
         }
         int lastChar = args.length - 1;
         for (int i = 1; i < args.length; i++){
@@ -75,7 +75,7 @@ public class CMDTell implements CommandExecutor {
             return true;
         }
 
-        PrivateMessage.sendTell(sender,target,theMsg);
+        PrivateMessage.sendTell((Player)sender,target,theMsg);
         return true;
     }
 }

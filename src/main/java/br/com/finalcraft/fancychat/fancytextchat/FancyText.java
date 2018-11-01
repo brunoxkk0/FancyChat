@@ -183,6 +183,17 @@ public class FancyText {
     }
 
     /**
+     *   Monta o comando para esses FancyText
+     *   e envia a mensagem para todos os jogadores!
+     */
+    public static void tellRawBroadcastSpecific(List<FancyText> texts, List<Player> players){
+        String command = tellRawCommandBuilder(texts);
+        for (Player player : players){
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + command);
+        }
+    }
+
+    /**
      *   Recebe uma List de FancyText e retorna
      *   o comando (String) corresponde a lista!
      */
