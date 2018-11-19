@@ -17,7 +17,8 @@ public class SpyMessage {
      * @return <tt>false</tt> if this player has benn removed from the SpyList
      */
     public static boolean changeSpyState(Player player){
-        if (spyingPlayers.remove(player)) {
+        if (spyingPlayers.contains(player)){
+            spyingPlayers.remove(player);
             return false;
         }
         spyingPlayers.add(player);

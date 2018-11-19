@@ -50,18 +50,17 @@ public class PublicMessage {
             }
         }else {
             List<Player> playerThatHeardedThis = new ArrayList<Player>();
-            int amoutOfPlayerTharReceivedThis = 0;
 
             for (Player onlinePlayerToSendMessage : channel.getPlayersOnThisChannel()) {
                 if (calcDistance(player,onlinePlayerToSendMessage) <=  channel.getDistance()){
-                    amoutOfPlayerTharReceivedThis++;
+                    playerThatHeardedThis.add(onlinePlayerToSendMessage);
                     if (!IgnoreUtil.isIgnoring(onlinePlayerToSendMessage.getName(), player.getName())){
                         FancyText.sendTo(onlinePlayerToSendMessage,textChatList);
                     }
                 }
             }
 
-            if (amoutOfPlayerTharReceivedThis <= 1 && channel.getDistance() > -1){
+            if (playerThatHeardedThis.size() <= 1 && channel.getDistance() > -1){
                 player.sendMessage("§6§l ▶ §cNão tem ninguem perto de você para receber essa mensagem...");
             }
 

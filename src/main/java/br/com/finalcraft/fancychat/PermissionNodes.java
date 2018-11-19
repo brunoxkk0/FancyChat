@@ -2,7 +2,7 @@ package br.com.finalcraft.fancychat;
 
 public class PermissionNodes {
 
-    public static final String commandReload = "fancychat.command.reload";
+    public static final String commandReload                        = "fancychat.command.reload";
     public static final String commandMute                          = "fancychat.command.mute";
     public static final String commandSpy                           = "fancychat.command.spy";
 

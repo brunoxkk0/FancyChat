@@ -19,7 +19,6 @@ public class DefaultConfigV1 {
             ConfigManager.getMainConfig().setValue("TagFormats.ch-global.hover-messages",Arrays.asList("&3Channel: &a&oGlobal","&bClick here to lock conversation in this channel"));
 
             ConfigManager.getMainConfig().setValue("TagFormats.nickname.format","{player}");
-
             ConfigManager.getMainConfig().setValue("TagFormats.nickname.,global-premes"," &r > {msg}");
 
             ConfigManager.getMainConfig().setValue("ChannelFormats.Global.alias","g");
