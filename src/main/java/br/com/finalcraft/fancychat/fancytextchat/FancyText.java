@@ -2,6 +2,7 @@ package br.com.finalcraft.fancychat.fancytextchat;
 
 import br.com.finalcraft.fancychat.placeholders.PlaceHolderIntegration;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -13,32 +14,11 @@ public class FancyText {
     public String hoverText = null;
     public String runCommandActionText = null;
     public String suggestCommandAction = null;
-
-    public FancyText parsePlaceholdersAndClone(CommandSender commandSender){
-        FancyText cloneFancyText = new FancyText();
-        Player player = null;
-        if (commandSender instanceof Player){
-            player = (Player) commandSender;
-        }
-        cloneFancyText.text = PlaceHolderIntegration.parsePlaceholder(player,text);
-        if (this.hoverText != null) cloneFancyText.hoverText = PlaceHolderIntegration.parsePlaceholder(player,this.hoverText);
-        if (this.runCommandActionText != null) cloneFancyText.runCommandActionText = PlaceHolderIntegration.parsePlaceholder(player,this.runCommandActionText);
-        if (this.suggestCommandAction != null) cloneFancyText.suggestCommandAction = PlaceHolderIntegration.parsePlaceholder(player,this.suggestCommandAction);
-        return cloneFancyText;
-    }
-
-    @Override
-    public FancyText clone(){
-        FancyText cloneFancyText = new FancyText();
-        cloneFancyText.text = this.text;
-        cloneFancyText.hoverText = this.hoverText;
-        cloneFancyText.runCommandActionText = this.runCommandActionText;
-        cloneFancyText.suggestCommandAction = this.suggestCommandAction;
-        return cloneFancyText;
-    }
-
+    public String tellRawCommand = null;
+    public String lastColor = "";
 
     public FancyText() {
+
     }
 
     public FancyText(String text) {
@@ -133,18 +113,28 @@ public class FancyText {
      *   Use as funções do FancyText.class ao invés dessa!
      */
     public String getTellRawString(){
-        String tellRaw = "{\"text\":\"" + this.text + "\"";
-        if (hoverText != null){
-            tellRaw = tellRaw + ",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"" + this.hoverText + "\"}";
+
+        if (tellRawCommand != null){
+            return this.tellRawCommand;
+        }
+
+        this.text = fixTellrawTextColors(this.text);
+        this.lastColor = getLastColor(this.text);
+
+        StringBuilder tellRaw = new StringBuilder("{\"text\":\"" + this.text + "\"");
+        if (this.hoverText != null){
+            this.hoverText = fixTellrawTextColors(this.hoverText);
+            tellRaw.append(",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"" + this.hoverText + "\"}");
         }
         if (runCommandActionText != null){
-            tellRaw = tellRaw + ",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" + this.runCommandActionText + "\"}";
+            tellRaw.append(",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" + this.runCommandActionText + "\"}");
         }else if (suggestCommandAction != null){
-            tellRaw = tellRaw + ",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"" + this.suggestCommandAction + "\"}";
+            tellRaw.append(",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"" + this.suggestCommandAction + "\"}");
         }
-        tellRaw = tellRaw + "}";
-        return tellRaw;
+        tellRaw.append("}");
+        return (this.tellRawCommand = tellRaw.toString());
     }
+
 
     // ------------------------------------------------------------------------------------------------------
     // Métodos Estáticos para se entregar as mensagens
@@ -152,27 +142,22 @@ public class FancyText {
 
 
     /**
-     *   Recebe um player como argumento e uma List de FancyText
+     *   Recebe um player como argumento e uma List de FancyTextElement
      *
-     *   Monta o comando para esses FancyText
+     *   Monta o comando para esses FancyTextElement
      *   e envia a mensagem para o jogador!
      */
     public static void sendTo(CommandSender commandSender, List<FancyText> texts){
-        if (commandSender instanceof Player){
+        if(commandSender instanceof Player){
             String command = tellRawCommandBuilder(texts);
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + commandSender.getName() + " " + command);
         }else {
-            StringBuilder fullLine = new StringBuilder();
-            for (FancyText fancyText : texts){
-                fullLine.append(fancyText.text.replaceAll("&","§"));
-            }
-            commandSender.sendMessage(fullLine.toString());
+            commandSender.sendMessage(textOnlyTextBuilder(texts));
         }
-
     }
 
     /**
-     *   Monta o comando para esses FancyText
+     *   Monta o comando para esses FancyTextElement
      *   e envia a mensagem para todos os jogadores!
      */
     public static void tellRawBroadcast(List<FancyText> texts){
@@ -180,30 +165,35 @@ public class FancyText {
         for (Player player : Bukkit.getOnlinePlayers()){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + command);
         }
+        Bukkit.getConsoleSender().sendMessage(textOnlyTextBuilder(texts));
     }
 
     /**
-     *   Monta o comando para esses FancyText
-     *   e envia a mensagem para todos os jogadores!
-     */
-    public static void tellRawBroadcastSpecific(List<FancyText> texts, List<Player> players){
-        String command = tellRawCommandBuilder(texts);
-        for (Player player : players){
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + command);
-        }
-    }
-
-    /**
-     *   Recebe uma List de FancyText e retorna
+     *   Recebe uma List de FancyTextElement e retorna
      *   o comando (String) corresponde a lista!
      */
     public static String tellRawCommandBuilder(List<FancyText> texts){
-        String command = "[\"\"";
+        StringBuilder command = new StringBuilder("[\"\"");
+        String previousLastColor = "";
         for (FancyText aFancyTextElement : texts){
-            command = command + "," + aFancyTextElement.getTellRawString();
+            aFancyTextElement.text = previousLastColor + aFancyTextElement.text;
+            command.append("," + aFancyTextElement.getTellRawString());
+            previousLastColor = aFancyTextElement.getLastTextColor();
+
         }
-        command = command + "]";
-        return command;
+        return command.append("]").toString();
+    }
+
+    /**
+     *   Recebe uma List de FancyTextElement e retorna
+     *   o comando (String) corresponde a lista!
+     */
+    public static String textOnlyTextBuilder(List<FancyText> texts){
+        StringBuilder text = new StringBuilder();
+        for (FancyText aFancyTextElement : texts){
+            text.append(aFancyTextElement.text);
+        }
+        return text.toString();
     }
 
 
@@ -214,15 +204,11 @@ public class FancyText {
 
 
     public static void sendTo(CommandSender commandSender, FancyText... texts){
-        if (commandSender instanceof Player){
+        if(commandSender instanceof Player){
             String command = tellRawCommandBuilder(texts);
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + commandSender.getName() + " " + command);
         }else {
-            StringBuilder fullLine = new StringBuilder();
-            for (FancyText fancyText : texts){
-                fullLine.append(fancyText.text.replaceAll("&","§"));
-            }
-            commandSender.sendMessage(fullLine.toString());
+            commandSender.sendMessage(textOnlyTextBuilder(texts));
         }
     }
 
@@ -231,15 +217,73 @@ public class FancyText {
         for (Player player : Bukkit.getOnlinePlayers()){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + command);
         }
+        Bukkit.getConsoleSender().sendMessage(textOnlyTextBuilder(texts));
     }
 
     public static String tellRawCommandBuilder(FancyText... texts){
-        String command = "[\"\"";
+        StringBuilder command = new StringBuilder("[\"\"");
         for (FancyText aFancyTextElement : texts){
-            command = command + "," + aFancyTextElement.getTellRawString();
+            command.append("," + aFancyTextElement.getTellRawString());
         }
-        command = command + "]";
-        return command;
+        command.append("]");
+        return command.toString();
     }
 
+    /**
+     *   Recebe uma List de FancyTextElement e retorna
+     *   o comando (String) corresponde a lista!
+     */
+    public static String textOnlyTextBuilder(FancyText... texts){
+        StringBuilder text = new StringBuilder();
+        for (FancyText aFancyTextElement : texts){
+            text.append(aFancyTextElement.text);
+        }
+        return text.toString();
+    }
+
+
+
+
+
+
+    // ------------------------------------------------------------------------------------------------------
+    // TellRaw Fixer
+    // ------------------------------------------------------------------------------------------------------
+
+    private String getLastTextColor() {
+        return lastColor;
+    }
+
+    private String getLastColor(String text){
+        return ChatColor.getLastColors(text);
+    }
+
+    private String fixTellrawTextColors(String theText){
+        String[] allWords = theText.split(" ");
+        String lastColor = "";
+        for (int i = 0; i < allWords.length; i++){
+            allWords[i] = lastColor + allWords[i];
+            lastColor = ChatColor.getLastColors(allWords[i]);
+        }
+        return String.join(" ",allWords).replaceAll("\"","''");
+    }
+
+
+
+    // ------------------------------------------------------------------------------------------------------
+    // FancyChat Specific Functions
+    // ------------------------------------------------------------------------------------------------------
+
+    public FancyText parsePlaceholdersAndClone(CommandSender commandSender){
+        FancyText cloneFancyText = new FancyText();
+        Player player = null;
+        if (commandSender instanceof Player){
+            player = (Player) commandSender;
+        }
+        cloneFancyText.text = PlaceHolderIntegration.parsePlaceholder(player,text);
+        if (this.hoverText != null) cloneFancyText.hoverText = PlaceHolderIntegration.parsePlaceholder(player,this.hoverText);
+        if (this.runCommandActionText != null) cloneFancyText.runCommandActionText = PlaceHolderIntegration.parsePlaceholder(player,this.runCommandActionText);
+        if (this.suggestCommandAction != null) cloneFancyText.suggestCommandAction = PlaceHolderIntegration.parsePlaceholder(player,this.suggestCommandAction);
+        return cloneFancyText;
+    }
 }
