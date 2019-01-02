@@ -1,5 +1,6 @@
 package br.com.finalcraft.fancychat.fancytextchat;
 
+import br.com.finalcraft.fancychat.integration.ThirdPartTagsParser;
 import br.com.finalcraft.fancychat.placeholders.PlaceHolderIntegration;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -281,6 +282,7 @@ public class FancyText {
             player = (Player) commandSender;
         }
         cloneFancyText.text = PlaceHolderIntegration.parsePlaceholder(player,text);
+        cloneFancyText.text = ThirdPartTagsParser.parseThirdParts(text,player,null);
         if (this.hoverText != null) cloneFancyText.hoverText = PlaceHolderIntegration.parsePlaceholder(player,this.hoverText);
         if (this.runCommandActionText != null) cloneFancyText.runCommandActionText = PlaceHolderIntegration.parsePlaceholder(player,this.runCommandActionText);
         if (this.suggestCommandAction != null) cloneFancyText.suggestCommandAction = PlaceHolderIntegration.parsePlaceholder(player,this.suggestCommandAction);

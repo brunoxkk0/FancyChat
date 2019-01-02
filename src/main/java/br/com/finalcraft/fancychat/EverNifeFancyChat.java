@@ -2,6 +2,7 @@ package br.com.finalcraft.fancychat;
 
 import br.com.finalcraft.fancychat.commands.CommandRegisterer;
 import br.com.finalcraft.fancychat.config.ConfigManager;
+import br.com.finalcraft.fancychat.integration.FactionsIntegration;
 import br.com.finalcraft.fancychat.listener.FancyChatListener;
 import br.com.finalcraft.fancychat.placeholders.PlaceHolderIntegration;
 import org.bukkit.Bukkit;
@@ -40,6 +41,12 @@ public class EverNifeFancyChat extends JavaPlugin{
             if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                 info("&aIntegration to PlaceHolderAPI");
                 PlaceHolderIntegration.initialize(this);
+            }
+
+            //Iniciando Factions Integration
+            if (Bukkit.getPluginManager().isPluginEnabled("Factions")){
+                info("&aIntegration to PlaceHolderAPI");
+                FactionsIntegration.initialize();
             }
 
 

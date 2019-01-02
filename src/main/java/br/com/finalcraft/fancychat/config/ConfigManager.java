@@ -39,16 +39,12 @@ public class ConfigManager {
         ChannelManager.refresh();                   //Carregar ChannelManager
         MuteUtil.initialize();                      //Carregar mutes e tempmutes
         AliaseRegister.registerChannelAliases();    //Registrar os atalhos para os canais, /g /l etc
-
-        FactionsIntegration.initialize();           //Ativa integração com Factions
     }
 
     private static final int CURRENT_VERSION = 2;
     private static void setDefaultValues(){
         if (ConfigManager.getMainConfig().getInt("ConfigVersion",0) != CURRENT_VERSION){
             ConfigManager.getMainConfig().setDefaultValue("ConfigVersion",CURRENT_VERSION);
-
-            ConfigManager.getMainConfig().setDefaultValue("Settings.Integrations.Factions",true);
 
             ConfigManager.getMainConfig().setDefaultValue("TellTag.sender-format"," {sender} &b-> &r{receiver}&r > &f");
             ConfigManager.getMainConfig().setDefaultValue("TellTag.receiver-format"," {sender} &c-> &r{receiver}&r > &f");
@@ -63,15 +59,17 @@ public class ConfigManager {
             ConfigManager.getMainConfig().setDefaultValue("TagFormats.ch-local.hover-messages",Arrays.asList("&3Channel: &a&oLocal","&bClick here to lock conversation in this channel"));
 
             ConfigManager.getMainConfig().setDefaultValue("TagFormats.nickname.format","{player}");
-            ConfigManager.getMainConfig().setDefaultValue("TagFormats.nickname.global-premes"," &r > {msg}");
-            ConfigManager.getMainConfig().setDefaultValue("TagFormats.nickname.local-premes"," &r > &6{msg}");
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.nickname.hover-messages","This is a Player");
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.nickname.run-command","/info {player}");
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.global-premes.format"," &r > {msg}");
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.local-premes.format"," &r > &6{msg}");
 
             ConfigManager.getMainConfig().setDefaultValue("ChannelFormats.Global.alias","g");
             ConfigManager.getMainConfig().setDefaultValue("ChannelFormats.Global.distance",-1);
             ConfigManager.getMainConfig().setDefaultValue("ChannelFormats.Global.tag-builder","ch-global,nickname,global-premes");
             ConfigManager.getMainConfig().setDefaultValue("ChannelFormats.Global.permission","");
 
-            ConfigManager.getMainConfig().setDefaultValue("ChannelFormats.Local.alias","g");
+            ConfigManager.getMainConfig().setDefaultValue("ChannelFormats.Local.alias","l");
             ConfigManager.getMainConfig().setDefaultValue("ChannelFormats.Local.distance",150);
             ConfigManager.getMainConfig().setDefaultValue("ChannelFormats.Local.tag-builder","ch-local,nickname,local-premes");
             ConfigManager.getMainConfig().setDefaultValue("ChannelFormats.Local.permission","");

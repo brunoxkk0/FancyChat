@@ -2,7 +2,7 @@ name: EverNifeFancyChat
 version: 1.0.1e
 author: EverNife
 main: br.com.finalcraft.fancychat.EverNifeFancyChat
-softdepend: [ PlaceholderAPI]
+softdepend: [ PlaceholderAPI, Factions]
 
 commands:
   chat:

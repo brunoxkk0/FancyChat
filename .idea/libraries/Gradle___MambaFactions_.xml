@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: :MambaFactions:">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/MambaFactions.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

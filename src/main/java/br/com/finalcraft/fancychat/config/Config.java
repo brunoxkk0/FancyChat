@@ -88,7 +88,16 @@ public class Config {
 					"\n Author: " + (plugin.getDescription().getAuthors().size() > 0 ? plugin.getDescription().getAuthors().get(0) : "Desconhecido") +
 					"\n" +
 					"\n N\u00E3o edite esse arquivo caso voc\u00EA n\u00E3o saiba usa-lo!" +
-					"\n-------------------------------------------------------");
+					"\n-------------------------------------------------------" +
+					"\n" +
+					"\n Factions Tags:" +
+					"\n   {faction-name}        = Faction's Name;" +
+					"\n   {faction-kill}        = Faction's Kills;" +
+					"\n   {faction-deaths}      = Faction's Deaths;" +
+					"\n   {faction-kdr}         = Faction's KDR;" +
+					"\n   {faction-lifetime}    = Faction's Days since the faction was created;" +
+					"\n   {faction-motd}        = Faction's MOTD;" +
+					"\n   {faction-description} = Faction's Description;");
 		}
 		if (copyDefaults){
 			config.options().copyDefaults(true);
