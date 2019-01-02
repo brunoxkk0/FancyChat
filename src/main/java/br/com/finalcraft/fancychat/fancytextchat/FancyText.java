@@ -128,9 +128,9 @@ public class FancyText {
             tellRaw.append(",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"" + this.hoverText + "\"}");
         }
         if (runCommandActionText != null){
-            tellRaw.append(",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" + this.runCommandActionText + "\"}");
+            tellRaw.append(",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"" + fixBrackets(this.runCommandActionText) + "\"}");
         }else if (suggestCommandAction != null){
-            tellRaw.append(",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"" + this.suggestCommandAction + "\"}");
+            tellRaw.append(",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"" + fixBrackets(this.suggestCommandAction) + "\"}");
         }
         tellRaw.append("}");
         return (this.tellRawCommand = tellRaw.toString());
@@ -242,11 +242,6 @@ public class FancyText {
         return text.toString();
     }
 
-
-
-
-
-
     // ------------------------------------------------------------------------------------------------------
     // TellRaw Fixer
     // ------------------------------------------------------------------------------------------------------
@@ -266,26 +261,38 @@ public class FancyText {
             allWords[i] = lastColor + allWords[i];
             lastColor = ChatColor.getLastColors(allWords[i]);
         }
-        return String.join(" ",allWords).replaceAll("\"","''");
+        return fixBrackets(String.join(" ",allWords));
     }
 
-
+    private String fixBrackets(String theText){
+        return theText.replaceAll("\"","\\\"");
+    }
 
     // ------------------------------------------------------------------------------------------------------
     // FancyChat Specific Functions
     // ------------------------------------------------------------------------------------------------------
 
-    public FancyText parsePlaceholdersAndClone(CommandSender commandSender){
+    public FancyText parsePlaceholdersAndClone(Player player){
         FancyText cloneFancyText = new FancyText();
-        Player player = null;
-        if (commandSender instanceof Player){
-            player = (Player) commandSender;
-        }
-        cloneFancyText.text = PlaceHolderIntegration.parsePlaceholder(player,text);
-        cloneFancyText.text = ThirdPartTagsParser.parseThirdParts(text,player,null);
-        if (this.hoverText != null) cloneFancyText.hoverText = PlaceHolderIntegration.parsePlaceholder(player,this.hoverText);
-        if (this.runCommandActionText != null) cloneFancyText.runCommandActionText = PlaceHolderIntegration.parsePlaceholder(player,this.runCommandActionText);
-        if (this.suggestCommandAction != null) cloneFancyText.suggestCommandAction = PlaceHolderIntegration.parsePlaceholder(player,this.suggestCommandAction);
+        cloneFancyText.text = parseThings(this.text,player);
+        if (this.hoverText != null) cloneFancyText.hoverText = parseThings(this.hoverText, player);
+        if (this.runCommandActionText != null) parseThings(this.runCommandActionText, player);
+        if (this.suggestCommandAction != null) parseThings(this.suggestCommandAction, player);
         return cloneFancyText;
     }
+
+    private String parseThings(String theText, Player sender){
+        return ThirdPartTagsParser.parseThirdParts(PlaceHolderIntegration.parsePlaceholder(theText,sender),sender,null);
+    }
+
+    @Override
+    public FancyText clone(){
+        FancyText cloneFancyText = new FancyText();
+        cloneFancyText.text = this.text;
+        cloneFancyText.hoverText = this.hoverText;
+        cloneFancyText.runCommandActionText = this.runCommandActionText;
+        cloneFancyText.suggestCommandAction = this.suggestCommandAction;
+        return cloneFancyText;
+    }
+
 }

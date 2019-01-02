@@ -10,8 +10,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class PlaceHolderIntegration extends EZPlaceholderHook {
 
     public static boolean hasPlaceholderApi = false;
-    public static String parsePlaceholder(Player player, String text){
-        text = text.replace("{player}",player.getName());
+    public static String parsePlaceholder(String text, Player player){
+        text = text.replace("{player}",player.getName()).replace("{playername}",player.getName());
         if (!hasPlaceholderApi){
             return ChatColor.translateAlternateColorCodes('&',text);
         }

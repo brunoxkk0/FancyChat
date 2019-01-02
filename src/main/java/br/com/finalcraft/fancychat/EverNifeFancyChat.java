@@ -45,7 +45,7 @@ public class EverNifeFancyChat extends JavaPlugin{
 
             //Iniciando Factions Integration
             if (Bukkit.getPluginManager().isPluginEnabled("Factions")){
-                info("&aIntegration to PlaceHolderAPI");
+                info("&aIntegration to Factions");
                 FactionsParser.initialize();
             }
 

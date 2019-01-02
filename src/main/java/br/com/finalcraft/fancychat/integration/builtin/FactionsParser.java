@@ -19,36 +19,31 @@ public class FactionsParser extends ThirdPartTagsParser {
 
     @Override
     public String parseTags(String theMessage, Player sender, Player receiver) {
-        if (sender == null){
-            return theMessage;
+        if (sender != null){
+            MPlayer mp = MPlayer.get(sender.getUniqueId());
+            if (!mp.getFaction().isNone()) {
+                Faction fac = mp.getFaction();
+                theMessage = theMessage
+                        .replace("{faction-name}"       , fac.getName())
+                        .replace("{faction-kdr}"        , fac.getKdrRounded())
+                        .replace("{faction-kills}"      , String.valueOf(fac.getKills()))
+                        .replace("{faction-deaths}"     , String.valueOf(fac.getDeaths()))
+                        .replace("{faction-lifetime}"   , String.valueOf(TimeUnit.MILLISECONDS.toDays(fac.getAge())))
+                        .replace("{faction-motd}"       , (fac.hasMotd() ? fac.getMotd() : "" ))
+                        .replace("{faction-description}", (fac.hasDescription() ? fac.getDescription() : "" ))
+                ;
+                //.replace("{faction-owner}", fac.getLeader().getNameAndFactionName());  //Should be only "getName()" but seems to be private!
+                return theMessage;
+            }
         }
-        MPlayer mp = MPlayer.get(sender.getUniqueId());
-        if (!mp.getFaction().isNone()) {
-            Faction fac = mp.getFaction();
-            theMessage = theMessage
-                    .replace("{faction-name}", fac.getName())
-                    .replace("{faction-kdr}", fac.getKdrRounded())
-                    .replace("{faction-kills}", String.valueOf(fac.getKills()))
-                    .replace("{faction-deaths}", String.valueOf(fac.getDeaths()))
-                    .replace("{faction-lifetime}", String.valueOf(TimeUnit.MILLISECONDS.toDays(fac.getAge())));
-            //.replace("{faction-owner}", fac.getLeader().getNameAndFactionName());  //Should be only "getName()" but seems to be private!
-            if (fac.hasMotd()) {
-                theMessage = theMessage
-                        .replace("{faction-motd}", fac.getMotd());
-            }
-            if (fac.hasDescription()) {
-                theMessage = theMessage
-                        .replace("{faction-description}", fac.getDescription());
-            }
-            /*
-            if (receiver instanceof Player) {
-                MPlayer recmp = MPlayer.get(((Player) receiver).getUniqueId());
-                theMessage = theMessage
-                        .replace("{fac-relation-name}", fac.getName(recmp))
-                        .replace("{fac-relation-color}", fac.getColorTo(recmp).toString());
-            }
-            */
-        }
+        theMessage = theMessage
+                .replace("{faction-name}", "")
+                .replace("{faction-kdr}", "")
+                .replace("{faction-kills}", "")
+                .replace("{faction-deaths}", "")
+                .replace("{faction-lifetime}", "")
+                .replace("{faction-motd}", "")
+                .replace("{faction-lifetime}", "");
         return theMessage;
     }
 }

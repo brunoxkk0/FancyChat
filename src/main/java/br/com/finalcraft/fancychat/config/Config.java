@@ -97,7 +97,10 @@ public class Config {
 					"\n   {faction-kdr}         = Faction's KDR;" +
 					"\n   {faction-lifetime}    = Faction's Days since the faction was created;" +
 					"\n   {faction-motd}        = Faction's MOTD;" +
-					"\n   {faction-description} = Faction's Description;");
+					"\n   {faction-description} = Faction's Description;" +
+					"\n" +
+					"\n Report issues at: https://github.com/evernife/FancyChat" +
+					"\n");
 		}
 		if (copyDefaults){
 			config.options().copyDefaults(true);

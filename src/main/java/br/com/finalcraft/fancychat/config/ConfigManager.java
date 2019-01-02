@@ -51,17 +51,22 @@ public class ConfigManager {
 
             ConfigManager.getMainConfig().setDefaultValue("TagFormats.ch-global.format","&7[&aG&7]");
             ConfigManager.getMainConfig().setDefaultValue("TagFormats.ch-global.run-command","/ch g");
-            ConfigManager.getMainConfig().setDefaultValue("TagFormats.ch-global.hover-messages",Arrays.asList("&3Channel: &a&oGlobal","&bClick here to lock conversation in this channel"));
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.ch-global.hover-messages",Arrays.asList("&3Channel: &a&oGlobal","&bCliquei aqui para travar nesse canal de mensagem"));
 
             ConfigManager.getMainConfig().setDefaultValue("TagFormats.ch-local.format","&7[&eL&7]");
             ConfigManager.getMainConfig().setDefaultValue("TagFormats.ch-local.run-command","/ch l");
-            ConfigManager.getMainConfig().setDefaultValue("TagFormats.ch-local.hover-messages",Arrays.asList("&3Channel: &a&oLocal","&bClick here to lock conversation in this channel"));
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.ch-local.hover-messages",Arrays.asList("&3Channel: &a&oLocal","&bCliquei aqui para travar nesse canal de mensagem"));
 
             ConfigManager.getMainConfig().setDefaultValue("TagFormats.nickname.format","{player}");
-            ConfigManager.getMainConfig().setDefaultValue("TagFormats.nickname.hover-messages","This is a Player");
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.nickname.hover-messages",Arrays.asList("Essa é a linha um do HoverMessage","Essa é a linha dois :D"));
             ConfigManager.getMainConfig().setDefaultValue("TagFormats.nickname.run-command","/info {player}");
-            ConfigManager.getMainConfig().setDefaultValue("TagFormats.global-premes.format"," &r > {msg}");
-            ConfigManager.getMainConfig().setDefaultValue("TagFormats.local-premes.format"," &r > &6{msg}");
+
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.global-premes.format","&r > {msg}");
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.local-premes.format","&r > &6{msg}");
+
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.factions-prefix.format","{faction-name}");
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.factions-prefix.run-command","/f");
+            ConfigManager.getMainConfig().setDefaultValue("TagFormats.factions-prefix.hover-messages",Arrays.asList("&7Faction Name: &e{faction-name}","&7Faction MOTD: &e{faction-motd}","&7Faction KDR: &e{faction-kdr}"));
 
             ConfigManager.getMainConfig().setDefaultValue("ChannelFormats.Global.alias","g");
             ConfigManager.getMainConfig().setDefaultValue("ChannelFormats.Global.distance",-1);
