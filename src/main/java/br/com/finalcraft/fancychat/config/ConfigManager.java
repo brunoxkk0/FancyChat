@@ -4,7 +4,6 @@ import br.com.finalcraft.fancychat.commands.alias.AliaseRegister;
 import br.com.finalcraft.fancychat.config.fancychat.FancyChannel;
 import br.com.finalcraft.fancychat.config.fancychat.FancyTag;
 import br.com.finalcraft.fancychat.config.fancychat.TellTag;
-import br.com.finalcraft.fancychat.integration.FactionsIntegration;
 import br.com.finalcraft.fancychat.util.ChannelManager;
 import br.com.finalcraft.fancychat.util.MuteUtil;
 import org.bukkit.plugin.java.JavaPlugin;

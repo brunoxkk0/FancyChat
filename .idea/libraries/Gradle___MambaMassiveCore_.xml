@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: :MambaMassiveCore:">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/MambaMassiveCore.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
