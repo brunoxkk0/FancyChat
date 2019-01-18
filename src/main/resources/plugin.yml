@@ -24,3 +24,19 @@ commands:
     description: EverNifeFancyChat Mute Command
     usage: /<command>
     aliases: [tempmute,chatmute,silence]
+permissions:
+  fancychat.command.reload:
+    description: Allow user to reload Config (reload all tags, channels, etc).
+    default: false
+  fancychat.command.mute:
+    description: Allow user to mute others Players.
+    default: false
+  fancychat.command.spy:
+    description: Allow user to see others chat (pms and local)
+    default: false
+  fancychat.chat.color:
+    description: Allow user to use color codes on chat.
+    default: false
+  fancychat.chat.staff:
+    description: A user with this message can't be muted and will be able to speak when Global channel is locked.
+    default: false

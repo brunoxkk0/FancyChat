@@ -30,7 +30,7 @@ public class MuteUtil {
             return false;
         }
 
-        if (globalMute && sender.hasPermission(PermissionNodes.chatNoGlobalMute)){
+        if (globalMute && sender.hasPermission(PermissionNodes.chatStaff)){
             return true;
         }
 
@@ -60,7 +60,7 @@ public class MuteUtil {
             return "";
         }
 
-        if (globalMute && !sender.hasPermission(PermissionNodes.chatNoGlobalMute)){
+        if (globalMute && !sender.hasPermission(PermissionNodes.chatStaff)){
             return "§c§l   (GlobalMute está ativado)";
         }
 

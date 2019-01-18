@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class PlaceHolderIntegration extends EZPlaceholderHook {
+public class PlaceHolderIntegration{
 
     public static boolean hasPlaceholderApi = false;
     public static String parsePlaceholder(String text, Player player){
@@ -20,15 +20,6 @@ public class PlaceHolderIntegration extends EZPlaceholderHook {
 
     public static void initialize(JavaPlugin plugin){
         hasPlaceholderApi = true;
-        new PlaceHolderIntegration(plugin,"fancytext").hook();
     }
 
-    public PlaceHolderIntegration(Plugin plugin, String identifier) {
-        super(plugin, identifier);
-    }
-
-    @Override
-    public String onPlaceholderRequest(Player player, String placeholder) {
-        return null;
-    }
 }

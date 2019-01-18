@@ -18,6 +18,8 @@ public class FancyText {
     public String tellRawCommand = null;
     public String lastColor = "";
 
+    public boolean recentChanged = true;
+
     public FancyText() {
 
     }
@@ -55,10 +57,12 @@ public class FancyText {
      *   Seta o texto dessa FancyMessage, por padrão, o texto é vazio "";
      */
     public FancyText setText(String text) {
+        setRecentChanged();
         this.text = text;
         return this;
     }
     public FancyText setText(List<String> textList){
+        setRecentChanged();
         this.text = String.join("\n", textList);
         return this;
     }
@@ -67,10 +71,12 @@ public class FancyText {
      *   Seta o texto dessa FancyMessage, por padrão, o texto é vazio "";
      */
     public FancyText addText(String text) {
+        setRecentChanged();
         this.text += text;
         return this;
     }
     public FancyText addText(List<String> textList){
+        setRecentChanged();
         this.text += String.join("\n", textList);
         return this;
     }
@@ -79,10 +85,12 @@ public class FancyText {
      *   Seta o a HoverMessage dessa FancyMessage;
      */
     public FancyText setHoverText(String hoverText) {
+        setRecentChanged();
         this.hoverText = hoverText;
         return this;
     }
     public FancyText setHoverText(List<String> hoverTextList){
+        setRecentChanged();
         this.hoverText = String.join("\n", hoverTextList);
         return this;
     }
@@ -92,6 +100,7 @@ public class FancyText {
      *   (Comando executado quando o jogador clica na mensagem)
      */
     public FancyText setRunCommandActionText(String runCommandActionText) {
+        setRecentChanged();
         this.runCommandActionText = runCommandActionText;
         return this;
     }
@@ -101,8 +110,13 @@ public class FancyText {
      *   (Comando sugerido quando o jogador clica na mensagem)
      */
     public FancyText setSuggestCommandAction(String suggestCommandAction) {
+        setRecentChanged();
         this.suggestCommandAction = suggestCommandAction;
         return this;
+    }
+
+    public void setRecentChanged(){
+        if (!recentChanged) recentChanged = true;
     }
 
 
@@ -115,9 +129,10 @@ public class FancyText {
      */
     public String getTellRawString(){
 
-        if (tellRawCommand != null){
+        if (tellRawCommand != null && !recentChanged){
             return this.tellRawCommand;
         }
+        recentChanged = false;
 
         this.text = fixTellrawTextColors(this.text);
         this.lastColor = getLastColor(this.text);
@@ -265,8 +280,7 @@ public class FancyText {
     }
 
     private String fixBrackets(String theText){
-        return theText.replaceAll("\"","\\\"");
-    }
+        return theText.replaceAll("\"","\'\'");    }
 
     // ------------------------------------------------------------------------------------------------------
     // FancyChat Specific Functions

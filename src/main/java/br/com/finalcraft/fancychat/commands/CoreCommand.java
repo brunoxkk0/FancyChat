@@ -52,7 +52,7 @@ public class CoreCommand implements CommandExecutor {
             FancyText.sendTo(player, new FancyText("§3§l ▶ §a/" + label + " ignore <Player>","§bIgnora as mensagens de um jogador específico!").setSuggestCommandAction("/" + label + " ignore "));
             FancyText.sendTo(player, new FancyText("§3§l ▶ §a/" + label + " ignoredList","§bMostra todos os jogadores que você está ignorando!").setRunCommandActionText("/" + label + " ignoreList"));
 
-            if (player.hasPermission(PermissionNodes.chatSpy)) FancyText.sendTo(player, new FancyText("§3§l ▶ §e/" + label + " spy","§bMostra todas as conversas do servidor.","/" + label + " spy"));
+            if (player.hasPermission(PermissionNodes.commandSpy)) FancyText.sendTo(player, new FancyText("§3§l ▶ §e/" + label + " spy [colorCode]","§bMostra todas as conversas do servidor. \n   Você pode usar a cor que quiser.","/" + label + " spy"));
             if (player.hasPermission(PermissionNodes.commandReload)) FancyText.sendTo(player, new FancyText("§3§l ▶ §a/" + label + " reload","§bRecarrega todas as configurações do Plugin!","/" + label + " reload"));
             sender.sendMessage("");
             sender.sendMessage("§3§oPasse o mouse em cima dos comandos para ver a descrição!");
@@ -114,7 +114,15 @@ public class CoreCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (SpyMessage.changeSpyState(player)){
+
+        String color = "&7";
+        if(!argumentos.get(1).isEmpty()){
+            color = argumentos.get(1);
+        }
+
+        color = ChatColor.translateAlternateColorCodes('&',color);
+
+        if (SpyMessage.changeSpyState(player, color)){
             sender.sendMessage("§6§l ▶ §aChatSpy Ativado!");
         }else {
             sender.sendMessage("§6§l ▶ §eChatSpy Desativado!");
