@@ -25,34 +25,30 @@ public class EverNifeFancyChat extends JavaPlugin{
     @Override
     public void onEnable() {
         instance = this;
-        try {
-            info("&aIniciando o Plugin...");
 
-            info("&aCarregando configuracoes...");
-            ConfigManager.initialize(this);
+        info("&aIniciando o Plugin...");
 
-            info("&aRegistrando comandos...");
-            CommandRegisterer.registerCommands(this);
+        info("&aCarregando configuracoes...");
+        ConfigManager.initialize(this);
 
-            info("&aRegistrando Listeners");
-            this.getServer().getPluginManager().registerEvents(fancyChatListener, this);
+        info("&aRegistrando comandos...");
+        CommandRegisterer.registerCommands(this);
 
-            //Iniciando PlaceHolderAPI Integration
-            if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
-                info("&aIntegration to PlaceHolderAPI");
-                PlaceHolderIntegration.initialize(this);
-            }
+        info("&aRegistrando Listeners");
+        this.getServer().getPluginManager().registerEvents(fancyChatListener, this);
 
-            //Iniciando Factions Integration
-            if (Bukkit.getPluginManager().isPluginEnabled("Factions")){
-                info("&aIntegration to Factions");
-                FactionsParser.initialize();
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        //Iniciando PlaceHolderAPI Integration
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
+            info("&aIntegration to PlaceHolderAPI");
+            PlaceHolderIntegration.initialize(this);
         }
+
+        //Iniciando Factions Integration
+        if (Bukkit.getPluginManager().isPluginEnabled("Factions")){
+            info("&aIntegration to Factions");
+            FactionsParser.initialize();
+        }
+
     }
 
     @Override

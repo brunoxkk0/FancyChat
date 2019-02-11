@@ -1,5 +1,5 @@
 name: EverNifeFancyChat
-version: 1.0.2
+version: 1.0.3
 author: EverNife
 main: br.com.finalcraft.fancychat.EverNifeFancyChat
 softdepend: [ PlaceholderAPI, Factions]
@@ -24,6 +24,9 @@ commands:
     description: EverNifeFancyChat Mute Command
     usage: /<command>
     aliases: [tempmute,chatmute,silence]
+  broadcast:
+    description: EverNifeFancyChat broadcast Command
+    usage: /<command>
 permissions:
   fancychat.command.reload:
     description: Allow user to reload Config (reload all tags, channels, etc).
@@ -33,6 +36,9 @@ permissions:
     default: false
   fancychat.command.spy:
     description: Allow user to see others chat (pms and local)
+    default: false
+  fancychat.command.broadcast:
+    description: Allow user to broadcast a message to all players!.
     default: false
   fancychat.chat.color:
     description: Allow user to use color codes on chat.

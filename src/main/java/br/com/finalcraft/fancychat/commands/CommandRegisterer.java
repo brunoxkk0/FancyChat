@@ -12,6 +12,7 @@ public class CommandRegisterer {
         pluginInstance.getCommand("tell").setExecutor(new CMDTell());
         pluginInstance.getCommand("channellock").setExecutor(new CMDChannelLock());
         pluginInstance.getCommand("mute").setExecutor(new CMDMute());
+        pluginInstance.getCommand("broadcast").setExecutor(new CMDBroadcast());
     }
 
 }
