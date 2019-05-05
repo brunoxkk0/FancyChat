@@ -22,7 +22,7 @@ public class CMDMute implements CommandExecutor {
     }
 
     // -----------------------------------------------------------------------------------------------------------------------------//
-    // Command Channel
+    // Command Mute
     // -----------------------------------------------------------------------------------------------------------------------------//
     public static void mute(String label, CommandSender sender, String[] args){
 

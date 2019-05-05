@@ -9,7 +9,10 @@ import java.util.*;
 public class FancyChannel {
 
     public static FancyChannel GLOBAL_CHANNEL;
-    public static FancyChannel NO_CHANNEL = null;
+    public static FancyChannel DEFAULT_CHANNEL = null;
+
+    public static String globalChannelName;
+    public static String defaultChannelName;
 
     public String name;
     public String alias;
@@ -26,12 +29,22 @@ public class FancyChannel {
     public static void initialize(){
         mapOfFancyChannels.clear();
 
+        globalChannelName   = ConfigManager.getMainConfig().getString("Settings.globalChannelName","Global");
+        defaultChannelName  = ConfigManager.getMainConfig().getString("Settings.defaultChannelName","Global");
+
         for (String fancyChannelName : ConfigManager.getMainConfig().getKeys("ChannelFormats")){
             FancyChannel fancyChannel = new FancyChannel(fancyChannelName);
             mapOfFancyChannels.put(fancyChannelName,fancyChannel);
-            if (fancyChannelName.equalsIgnoreCase("GLOBAL")){
+            if (fancyChannelName.equalsIgnoreCase(globalChannelName)){
                 GLOBAL_CHANNEL = fancyChannel;
             }
+            if (fancyChannelName.equalsIgnoreCase(defaultChannelName)){
+                DEFAULT_CHANNEL = fancyChannel;
+            }
+        }
+
+        if (GLOBAL_CHANNEL == null || DEFAULT_CHANNEL == null){
+            EverNifeFancyChat.info("[WARNING] Meu consagrado, você setou um canal default/global que não existe!");
         }
 
         EverNifeFancyChat.info("§aFinished Loading " + mapOfFancyChannels.size() + " FancyChannels!");
@@ -47,7 +60,7 @@ public class FancyChannel {
         for (String tagName : tag_builder.split(",")){
             FancyTag fancyTag = FancyTag.mapOfFancyTags.getOrDefault(tagName,null);
             if (fancyTag == null){
-                EverNifeFancyChat.info("I was building the channels and fount out that there is no \"" + tagName + "\" FancyTag.");
+                EverNifeFancyChat.info("I was building the channels and found out that there is no \"" + tagName + "\" FancyTag.");
             }else {
                 tagsFromThisBuilder.add(fancyTag);
             }

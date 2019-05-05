@@ -84,4 +84,10 @@ public class FCBukkitUtil {
         }
         return argumentos;
     }
+
+    public static void playSound(String playerName, String music) {
+        makeConsoleExecuteCommand("playsound " + music + " " + playerName + " ~0 ~0 ~0 100");
+    }
+
+
 }

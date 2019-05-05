@@ -55,10 +55,8 @@ public class CMDInChannel implements CommandExecutor {
         String msg = String.join(" ", args).trim();
 
         if (msg.isEmpty()){
-            if (!fancyChannel.getPermission().isEmpty()){
-                if (!FCBukkitUtil.hasThePermission(player,fancyChannel.getPermission())){
-                    return true;
-                }
+            if (!fancyChannel.getPermission().isEmpty() && !FCBukkitUtil.hasThePermission(player,fancyChannel.getPermission())){
+                return true;
             }
             ChannelManager.setPlayerLockChannel(player,fancyChannel);
             sender.sendMessage("§6§l ▶ §aCanal §e[" + fancyChannel.getName() + "]§a definido como padrão!");

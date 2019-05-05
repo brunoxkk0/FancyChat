@@ -18,6 +18,9 @@ public class FancyText {
     public String tellRawCommand = null;
     public String lastColor = "";
 
+    public boolean containsMSG = false;
+
+
     public boolean recentChanged = true;
 
     public FancyText() {
@@ -306,6 +309,9 @@ public class FancyText {
         cloneFancyText.hoverText = this.hoverText;
         cloneFancyText.runCommandActionText = this.runCommandActionText;
         cloneFancyText.suggestCommandAction = this.suggestCommandAction;
+        cloneFancyText.lastColor = this.lastColor;
+        cloneFancyText.recentChanged = this.recentChanged;
+        cloneFancyText.containsMSG = this.containsMSG;
         return cloneFancyText;
     }
 

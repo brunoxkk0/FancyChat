@@ -9,6 +9,8 @@ import java.util.Collection;
 
 public class FancyChatApi {
 
+    public static boolean isMainChannel(FancyChannel fancyChannel) {return FancyChannel.GLOBAL_CHANNEL == fancyChannel;}
+
     public static FancyChannel getChannel(String name){
         return FancyChannel.getFancyChannel(name);
     }

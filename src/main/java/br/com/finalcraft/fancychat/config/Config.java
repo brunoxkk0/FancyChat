@@ -90,6 +90,9 @@ public class Config {
 					"\n N\u00E3o edite esse arquivo caso voc\u00EA n\u00E3o saiba usa-lo!" +
 					"\n-------------------------------------------------------" +
 					"\n" +
+					"\n Default Tags:" +
+					"\n   {player-prefix}        = Player's Vault Prefix or Player's CustomTag prefix;" +
+					"\n" +
 					"\n Factions Tags:" +
 					"\n   {faction-name}        = Faction's Name;" +
 					"\n   {faction-kill}        = Faction's Kills;" +

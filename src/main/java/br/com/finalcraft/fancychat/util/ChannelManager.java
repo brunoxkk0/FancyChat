@@ -60,11 +60,7 @@ public class ChannelManager {
     }
 
     public static FancyChannel getPlayerLockChannel(Player player){
-        FancyChannel fancyChannel = playerLockFancyChannelMap.getOrDefault(player,FancyChannel.NO_CHANNEL);
-        if (fancyChannel != FancyChannel.NO_CHANNEL){
-            return fancyChannel;
-        }
-        setPlayerLockChannel(player,FancyChannel.GLOBAL_CHANNEL);
-        return FancyChannel.GLOBAL_CHANNEL;
+        FancyChannel fancyChannel = playerLockFancyChannelMap.get(player);
+        return fancyChannel != null ? fancyChannel : FancyChannel.DEFAULT_CHANNEL;
     }
 }

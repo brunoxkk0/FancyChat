@@ -18,13 +18,19 @@ public class SpyMessage {
      * @return <tt>true</tt> if this player has benn added to the SpyList
      * @return <tt>false</tt> if this player has benn removed from the SpyList
      */
-    public static boolean changeSpyState(Player player, String color){
-        if (spyingPlayers.containsKey(player)){
+    public static void changeSpyState(Player player, String color, boolean state){
+        if (state == false && isSpying(player)){
             spyingPlayers.remove(player);
-            return false;
+            return;
         }
-        spyingPlayers.put(player, color);
-        return true;
+        if (state == true){
+            spyingPlayers.remove(player);
+            spyingPlayers.put(player, color);
+        }
+    }
+
+    public static boolean isSpying(Player player){
+        return spyingPlayers.containsKey(player);
     }
 
     public static void spyOnThis(List<FancyText> msg, List<Player> allPlayerWhoHeard){

@@ -114,18 +114,19 @@ public class CoreCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
+        String color = argumentos.get(1).isEmpty() ? "§7" : ChatColor.translateAlternateColorCodes('&',argumentos.get(1));
 
-        String color = "&7";
-        if(!argumentos.get(1).isEmpty()){
-            color = argumentos.get(1);
-        }
-
-        color = ChatColor.translateAlternateColorCodes('&',color);
-
-        if (SpyMessage.changeSpyState(player, color)){
-            sender.sendMessage("§6§l ▶ §aChatSpy Ativado!");
+        if (!argumentos.get(0).isEmpty()){
+            sender.sendMessage("§6§l ▶ §aChatSpy Ativado! (cor do chat: " + color + argumentos.get(1) + ")");
+            SpyMessage.changeSpyState(player,color,true);
         }else {
-            sender.sendMessage("§6§l ▶ §eChatSpy Desativado!");
+            if (!SpyMessage.isSpying(player)){
+                sender.sendMessage("§6§l ▶ §aChatSpy Ativado!");
+                SpyMessage.changeSpyState(player,color,true);
+            }else {
+                sender.sendMessage("§6§l ▶ §eChatSpy Desativado!");
+                SpyMessage.changeSpyState(player,color,false);
+            }
         }
         return true;
     }

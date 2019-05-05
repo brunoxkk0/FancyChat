@@ -36,9 +36,9 @@ public class CMDTell implements CommandExecutor {
         Player target = null;
         boolean firstArgWasAPerson = false;
         if (args.length >= 1){
-            Player possibleTarge = Bukkit.getPlayer(args[0]);
-            if (possibleTarge != null){
-                target = possibleTarge;
+            Player possibleTarget = Bukkit.getPlayer(args[0]);
+            if (possibleTarget != null){
+                target = possibleTarget;
                 firstArgWasAPerson = true;
             }else {
                 String targetName = PrivateMessage.getLastTarget(sender.getName());

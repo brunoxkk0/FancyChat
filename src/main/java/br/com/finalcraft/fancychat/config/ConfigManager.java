@@ -16,6 +16,7 @@ public class ConfigManager {
 
     public static Config mainConfig;
     public static Config dataStore;
+    public static Config customTags;
 
     public static Config getMainConfig(){
         return mainConfig;
@@ -24,11 +25,16 @@ public class ConfigManager {
         return dataStore;
     }
 
+    public static Config getCustomTags() {
+        return customTags;
+    }
+
     public static void initialize(JavaPlugin aInstace){
         instance = aInstace;
 
         mainConfig  = new Config(instance,"config.yml"      ,false);
         dataStore   = new Config(instance,"DataStore.yml"      ,false);
+        customTags  = new Config(instance,"CustomTags.yml"      ,false);
 
         setDefaultValues();
 
@@ -40,10 +46,13 @@ public class ConfigManager {
         AliaseRegister.registerChannelAliases();    //Registrar os atalhos para os canais, /g /l etc
     }
 
-    private static final int CURRENT_VERSION = 2;
+    private static final int CURRENT_VERSION = 3;
     private static void setDefaultValues(){
         if (ConfigManager.getMainConfig().getInt("ConfigVersion",0) != CURRENT_VERSION){
             ConfigManager.getMainConfig().setDefaultValue("ConfigVersion",CURRENT_VERSION);
+
+            ConfigManager.getMainConfig().setDefaultValue("Settings.globalChannelName","Global");
+            ConfigManager.getMainConfig().setDefaultValue("Settings.defaultChannelName","Global");
 
             ConfigManager.getMainConfig().setDefaultValue("TellTag.sender-format"," {sender} &b-> &r{receiver}&r > &f");
             ConfigManager.getMainConfig().setDefaultValue("TellTag.receiver-format"," {sender} &c-> &r{receiver}&r > &f");

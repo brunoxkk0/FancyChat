@@ -12,6 +12,7 @@ public class FancyTag {
 
     public String name;
     public String permission;
+    public String placeholderCondition;
     public String format;
     public String hover_message;
     public String run_command;
@@ -40,6 +41,7 @@ public class FancyTag {
         this.name = name;
         this.format = ConfigManager.getMainConfig().getString("TagFormats." + name + ".format","");
         this.permission = ConfigManager.getMainConfig().getString("TagFormats." + name + ".permission","");
+        this.placeholderCondition = ConfigManager.getMainConfig().getString("TagFormats." + name + ".placeholderCondition","");
 
         StringBuilder hoverBuilder = new StringBuilder();
         for (String line : ConfigManager.getMainConfig().getStringList("TagFormats." + name + ".hover-messages")){
@@ -69,6 +71,10 @@ public class FancyTag {
 
     public String getPermission() {
         return permission;
+    }
+
+    public String getPlaceholderCondition() {
+        return placeholderCondition;
     }
 
     public String getFormat() {

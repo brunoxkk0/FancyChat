@@ -2,6 +2,7 @@ package br.com.finalcraft.fancychat;
 
 import br.com.finalcraft.fancychat.commands.CommandRegisterer;
 import br.com.finalcraft.fancychat.config.ConfigManager;
+import br.com.finalcraft.fancychat.integration.builtin.DefaultParser;
 import br.com.finalcraft.fancychat.integration.builtin.FactionsParser;
 import br.com.finalcraft.fancychat.listener.FancyChatListener;
 import br.com.finalcraft.fancychat.placeholders.PlaceHolderIntegration;
@@ -49,6 +50,7 @@ public class EverNifeFancyChat extends JavaPlugin{
             FactionsParser.initialize();
         }
 
+        DefaultParser.initialize();
     }
 
     @Override

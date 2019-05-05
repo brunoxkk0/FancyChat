@@ -1,8 +1,8 @@
 name: EverNifeFancyChat
-version: 1.0.3
+version: 1.0.4
 author: EverNife
 main: br.com.finalcraft.fancychat.EverNifeFancyChat
-softdepend: [ PlaceholderAPI, Factions]
+softdepend: [ PlaceholderAPI, Factions ]
 
 commands:
   chat:
@@ -12,11 +12,11 @@ commands:
   tell:
     description: EverNifeFancyChat Tell Command
     usage: /<command>
-    aliases: [inChannel,t,w,msg,private,r]
+    aliases: [whispper,t,w,msg,private,r]
   channellock:
-    description: EverNifeFancyChat InChannel Command
+    description: EverNifeFancyChat ChanellLock Command
     usage: /<command>
-    aliases: [ch,channel,lock,msg,private,r]
+    aliases: [ch,channel,lock]
   inchannel:
     description: EverNifeFancyChat InChannel Command
     usage: /<command>

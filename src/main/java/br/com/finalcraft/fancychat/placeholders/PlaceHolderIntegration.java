@@ -1,10 +1,8 @@
 package br.com.finalcraft.fancychat.placeholders;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.clip.placeholderapi.external.EZPlaceholderHook;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PlaceHolderIntegration{
