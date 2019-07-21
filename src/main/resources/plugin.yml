@@ -13,6 +13,10 @@ commands:
     description: EverNifeFancyChat Tell Command
     usage: /<command>
     aliases: [whispper,t,w,msg,private,r]
+  fancymessage:
+    description: EverNifeFancyChat Tell Command
+    usage: /<command>
+    aliases: [fmessage,fmsg,umsg,pbroadcast]
   channellock:
     description: EverNifeFancyChat ChanellLock Command
     usage: /<command>
@@ -38,7 +42,10 @@ permissions:
     description: Allow user to see others chat (pms and local)
     default: false
   fancychat.command.broadcast:
-    description: Allow user to broadcast a message to all players!.
+    description: Allow user to broadcast a message to all players!
+    default: false
+  fancychat.command.fancymessage:
+    description:  Allow user to send a fancymessage to a specific player!
     default: false
   fancychat.chat.color:
     description: Allow user to use color codes on chat.

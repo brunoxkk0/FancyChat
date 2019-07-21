@@ -29,8 +29,8 @@ public class FancyChannel {
     public static void initialize(){
         mapOfFancyChannels.clear();
 
-        globalChannelName   = ConfigManager.getMainConfig().getString("Settings.globalChannelName","Global");
-        defaultChannelName  = ConfigManager.getMainConfig().getString("Settings.defaultChannelName","Global");
+        globalChannelName   = ConfigManager.getMainConfig().getString("Settings.globalChannelName");
+        defaultChannelName  = ConfigManager.getMainConfig().getString("Settings.defaultChannelName");
 
         for (String fancyChannelName : ConfigManager.getMainConfig().getKeys("ChannelFormats")){
             FancyChannel fancyChannel = new FancyChannel(fancyChannelName);

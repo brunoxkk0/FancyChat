@@ -114,20 +114,29 @@ public class CoreCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        String color = argumentos.get(1).isEmpty() ? "§7" : ChatColor.translateAlternateColorCodes('&',argumentos.get(1));
-
-        if (!argumentos.get(0).isEmpty()){
-            sender.sendMessage("§6§l ▶ §aChatSpy Ativado! (cor do chat: " + color + argumentos.get(1) + ")");
-            SpyMessage.changeSpyState(player,color,true);
-        }else {
-            if (!SpyMessage.isSpying(player)){
-                sender.sendMessage("§6§l ▶ §aChatSpy Ativado!");
-                SpyMessage.changeSpyState(player,color,true);
-            }else {
+        switch (argumentos.get(1).toLowerCase()){
+            case "":
+                sender.sendMessage("§6§l ▶ §e/" + label + " spy [ON|OFF|setColor]");
+                return true;
+            case "off":
                 sender.sendMessage("§6§l ▶ §eChatSpy Desativado!");
-                SpyMessage.changeSpyState(player,color,false);
-            }
+                SpyMessage.changeSpyState(player,"§7",false);
+                return true;
+            case "on":
+                sender.sendMessage("§6§l ▶ §aChatSpy Ativado!");
+                SpyMessage.changeSpyState(player,"§7",true);
+                return true;
+            case "setcolor":
+                if (!SpyMessage.isSpying(player)){
+                    sender.sendMessage("§6§l ▶ §aSeu ChatSpy está desativado...");
+                    return true;
+                }
+                String color = argumentos.get(2).isEmpty() ? "§7" : ChatColor.translateAlternateColorCodes('&',argumentos.get(2));
+                SpyMessage.changeSpyState(player, color,true);
+                sender.sendMessage("§6§l ▶ §aCor do ChatSpy alterado para: " + color + argumentos.get(2) + ")");
+                return true;
         }
+        sender.sendMessage("§6§l ▶ §aParâmetro inválido...");
         return true;
     }
 
