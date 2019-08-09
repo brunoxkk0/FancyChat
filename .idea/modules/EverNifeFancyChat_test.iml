@@ -16,6 +16,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="EverNifeFancyChat_main" />
+    <orderEntry type="library" name="Gradle: :EssentialsX-2.15.0.evernife.v1b:" level="project" />
     <orderEntry type="library" name="Gradle: :PlaceholderAPI:" level="project" />
     <orderEntry type="library" name="Gradle: :MambaFactions:" level="project" />
     <orderEntry type="library" name="Gradle: :MambaMassiveCore:" level="project" />

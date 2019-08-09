@@ -17,6 +17,9 @@ public class EverNifeFancyChat extends JavaPlugin{
     public static void info(String msg){
         instance.getLogger().info("[Info] " + msg.replace("&","§"));
     }
+    public static void chatLog(String msg){
+        instance.getLogger().info("[ChatLog] " + msg);
+    }
     public static void debug(String msg){
         instance.getLogger().info("[Debug] " + msg.replace("&","§"));
     }

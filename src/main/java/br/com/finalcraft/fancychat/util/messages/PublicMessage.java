@@ -78,7 +78,7 @@ public class PublicMessage {
             public void run() {
                 if (channel.distance <= -1){
                     for (Player onlinePlayerToSendMessage : channel.getPlayersOnThisChannel()) {
-                        if (!IgnoreUtil.isIgnoring(onlinePlayerToSendMessage.getName(), player.getName())){
+                        if (!IgnoreUtil.isIgnoring(onlinePlayerToSendMessage, player)){
 
                             //Entregando mensage ao jogador!
                             doTheDeploy(textChatList,player,onlinePlayerToSendMessage,finalIdOfMSGText);
@@ -91,7 +91,7 @@ public class PublicMessage {
                     for (Player onlinePlayerToSendMessage : channel.getPlayersOnThisChannel()) {
                         if (calcDistance(player,onlinePlayerToSendMessage) <=  channel.getDistance()){
                             playerThatHeardedThis.add(onlinePlayerToSendMessage);
-                            if (!IgnoreUtil.isIgnoring(onlinePlayerToSendMessage.getName(), player.getName())){
+                            if (!IgnoreUtil.isIgnoring(onlinePlayerToSendMessage, player)){
 
                                 //Entregando mensage ao jogador!
                                 doTheDeploy(textChatList,player,onlinePlayerToSendMessage,finalIdOfMSGText);

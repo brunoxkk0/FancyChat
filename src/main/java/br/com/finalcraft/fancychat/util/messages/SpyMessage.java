@@ -1,5 +1,6 @@
 package br.com.finalcraft.fancychat.util.messages;
 
+import br.com.finalcraft.fancychat.EverNifeFancyChat;
 import br.com.finalcraft.fancychat.fancytextchat.FancyText;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -50,6 +51,11 @@ public class SpyMessage {
 
 
         String previousColor = "§7";
+        for (FancyText fancyText : msg) {
+            fancyText.setText(previousColor + ChatColor.stripColor(fancyText.text));
+        }
+
+        EverNifeFancyChat.chatLog(FancyText.textOnlyTextBuilder(msg));
         for (Map.Entry<Player, String> playerStringEntry : spyingPlayers.entrySet()) {
             if (playerStringEntry.getKey().isOnline()){
                 if (!allPlayerWhoHeard.contains(playerStringEntry.getKey())){

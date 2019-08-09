@@ -24,6 +24,7 @@ repositories {
 
 dependencies {
     //compile name: "EverNifeCore-1.3.1a"
+    compile name: "EssentialsX-2.15.0.evernife.v1b"
     compile name: "PlaceholderAPI"
     compile name: "MambaFactions"
     compile name: "MambaMassiveCore"
