@@ -19,10 +19,12 @@ public class IgnoreUtil {
     private static boolean essentialsEnabled = false;
     public static void initialize(){
 
+        /*
         if (essentialsEnabled = Bukkit.getPluginManager().isPluginEnabled("Essentials")){
             EverNifeFancyChat.info("[Essentials Found] Utilizando ESS-Ignore System");
             return;
         }
+         */
 
         playerIgnoreListMap.clear();
 

@@ -1,7 +1,9 @@
 package br.com.finalcraft.fancychat;
 
+import br.com.finalcraft.fancychat.api.CustomTagParser;
 import br.com.finalcraft.fancychat.commands.CommandRegisterer;
 import br.com.finalcraft.fancychat.config.ConfigManager;
+import br.com.finalcraft.fancychat.config.customtag.CustomTag;
 import br.com.finalcraft.fancychat.integration.builtin.DefaultParser;
 import br.com.finalcraft.fancychat.integration.builtin.FactionsParser;
 import br.com.finalcraft.fancychat.listener.FancyChatListener;
@@ -9,6 +11,8 @@ import br.com.finalcraft.fancychat.placeholders.PlaceHolderIntegration;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.IOException;
 
 public class EverNifeFancyChat extends JavaPlugin{
 
@@ -25,6 +29,7 @@ public class EverNifeFancyChat extends JavaPlugin{
     }
 
     private FancyChatListener fancyChatListener = new FancyChatListener();
+    private static CustomTagParser customTagParser;
 
     @Override
     public void onEnable() {
@@ -54,11 +59,22 @@ public class EverNifeFancyChat extends JavaPlugin{
         }
 
         DefaultParser.initialize();
+
+        try {
+            customTagParser  = new CustomTagParser();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void onDisable() {
         HandlerList.unregisterAll(fancyChatListener);
+    }
+
+    public static CustomTagParser getCustomTagParser(){
+        return customTagParser;
     }
 
 

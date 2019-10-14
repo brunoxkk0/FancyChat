@@ -1,5 +1,6 @@
 package br.com.finalcraft.fancychat.api;
 
+import br.com.finalcraft.fancychat.EverNifeFancyChat;
 import br.com.finalcraft.fancychat.config.fancychat.FancyChannel;
 import br.com.finalcraft.fancychat.util.ChannelManager;
 import br.com.finalcraft.fancychat.util.MuteUtil;
@@ -29,7 +30,7 @@ public class FancyChatApi {
 
     public static void sendMessage(String message, FancyChannel fancyChannel){
         for (Player player : fancyChannel.getPlayersOnThisChannel()){
-            player.sendMessage(message);
+            player.sendMessage(EverNifeFancyChat.getCustomTagParser().replace(message));
         }
     }
 
